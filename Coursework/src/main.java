@@ -110,7 +110,9 @@ public class main {
 		}
 		
 	
-		
+		while (!openCav.isEmpty()) {  //A star loop
+			//Cavern l = openCav.get(fscore.(Need to get key with lowest fscore value));
+		}
 		
 
 	}
