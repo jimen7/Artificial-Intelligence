@@ -11,11 +11,12 @@ public class main {
 	public static void main(String[] args) throws Exception {
 		// TODO Auto-generated method stub
 		
-		List<Cavern> nodelist = new ArrayList<Cavern>();
+		List<Cavern> cavernlist = new ArrayList<Cavern>();
 		
 		List<Integer> filelist = new ArrayList<Integer>();
 		
-		String csvfile = "H:\\Artificial Intelligence\\Coursework\\Artificial-Intelligence\\input1.cav";
+		//String csvfile = "H:\\Artificial Intelligence\\Coursework\\Artificial-Intelligence\\input1.cav";
+		String csvfile = "C:\\Users\\Dimitris\\Desktop\\Artificial Intelligence\\Coursework\\Artificial-Intelligence\\input1.cav";
 		String line = "";
 		String splitby = ",";
 		
@@ -42,13 +43,54 @@ public class main {
 		
 		int numberofcaverns = filelist.get(0);
 		
+		
+		//To get location of caverns:
 		for (int i=1;i<numberofcaverns*2;i=i+2) {
 			Cavern node1 = new Cavern(filelist.get(i),filelist.get(i+1)); 
-			nodelist.add(node1);
+			cavernlist.add(node1);
 		}
 		
-		for (Cavern c : nodelist) {
-			System.out.print("("+c.getX()+","+c.getY()+")");	
+		
+		int tmp=0;
+		int loopcavern=0;
+		
+		
+		for (int i=0; i < cavernlist.size(); i=i++) {
+			Cavern c = cavernlist.get(tmp);
+			
+			if (filelist.get(loopcavern)+tmp*numberofcaverns == 1) {
+				c.getNeighboor().add(cavernlist.get(loopcavern));
+			}
+			loopcavern++;
+			
+			if (loopcavern==numberofcaverns) {
+				loopcavern=0;
+				tmp++;
+			}
+		}
+		
+		
+		
+		
+		
+		
+		
+		//To get paths for each cavern, i starts where the coordinates for the caverns finish and goes until the end of the filelist
+		for (int i=numberofcaverns*2+1; i<filelist.size(); i++) {
+			
+		}
+		
+		
+		
+		for (Cavern c : cavernlist) {
+			//System.out.print("("+c.getX()+","+c.getY()+")");
+		}
+		
+		
+		for (int i=0; i<numberofcaverns; i++) {
+			//System.out.print(cav);
+			System.out.print(cavernlist.get(i).getNeighboor().size() + "NEXT:");
+
 		}
 		
 		
