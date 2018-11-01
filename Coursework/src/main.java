@@ -5,8 +5,16 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.HashMap;
 
 public class main {
+	
+	static double Euclidian_Distance(Cavern from, Cavern to) {
+		double distance;
+		distance = Math.sqrt((from.getX()-to.getX())*(from.getX()-to.getX()) + (from.getY()-to.getY())*(from.getY()-to.getY()));
+		return distance;
+	}
+	
 
 	public static void main(String[] args) throws Exception {
 		// TODO Auto-generated method stub
@@ -17,6 +25,9 @@ public class main {
 		
 		List<Integer> connectionList = new ArrayList<Integer>(); //List of all the connections of all caverns(Will be either 0 or 1)
 		
+		//List<Cavern> path = new ArrayList<Cavern>(); //The path that will be used in the end result
+		
+		
 		//Using the string to read the file and compare
 		String line = "";
 		String splitby = ",";
@@ -25,7 +36,14 @@ public class main {
 		//String csvfile = "H:\\Artificial Intelligence\\Coursework\\Artificial-Intelligence\\input1.cav";
 		//String csvfile = "C:\\Users\\Dimitris\\Desktop\\Artificial Intelligence\\Coursework\\Artificial-Intelligence\\input1.cav";
 		
-		
+		//Values for A star algorithm
+		List<Cavern> openCav = new ArrayList<Cavern>(); //The caverns that have not been checked yet
+		List<Cavern> closedCav = new ArrayList<Cavern>(); //The caverns that have been checked
+		HashMap<Cavern,Cavern> originalpath = new HashMap<Cavern,Cavern>();
+		HashMap<Cavern,Double> gscore = new HashMap<Cavern,Double>(); //The cost of getting from the start to the cavern
+		gscore.put(cavernlist.get(0), 0.0);
+		HashMap<Cavern,Double> fscore = new HashMap<Cavern,Double>(); //The cost of getting from the start to the goal by passing through this cavern
+		fscore.put(cavernlist.get(0), Euclidian_Distance(cavernlist.get(0), cavernlist.get(cavernlist.size()-1)));
 		
 		
 		
@@ -67,7 +85,7 @@ public class main {
 		
 		
 		
-		//Using the boolean for printing out tyhe connection
+		//Using the boolean for printing out the connection
 		boolean check = false;
 		//Checking connection for each tavern
 		for (int j=0; j<numberofcaverns;j++) {
