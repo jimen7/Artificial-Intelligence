@@ -8,9 +8,10 @@ public class Cavern {
 	private int y;
 	private List<Cavern> neighbors = new ArrayList<Cavern>();
 	
-	public Cavern(int x, int y) {
+	public Cavern(int x, int y, int id) {
 		this.x = x;
 		this.y=y;
+		this.id=id;
 	}
 	
 	public List<Cavern> getNeighboor() {

@@ -11,18 +11,25 @@ public class main {
 	public static void main(String[] args) throws Exception {
 		// TODO Auto-generated method stub
 		
-		List<Cavern> cavernlist = new ArrayList<Cavern>();
+		List<Cavern> cavernlist = new ArrayList<Cavern>(); //List of all Caverns
 		
-		List<Integer> filelist = new ArrayList<Integer>();
+		List<Integer> filelist = new ArrayList<Integer>(); //List of all the integers of the imported file
 		
-		//String csvfile = "H:\\Artificial Intelligence\\Coursework\\Artificial-Intelligence\\input1.cav";
-		String csvfile = "C:\\Users\\Dimitris\\Desktop\\Artificial Intelligence\\Coursework\\Artificial-Intelligence\\input1.cav";
+		List<Integer> connectionList = new ArrayList<Integer>(); //List of all the connections of all caverns(Will be either 0 or 1)
+		
+		//Using the string to read the file and compare
 		String line = "";
 		String splitby = ",";
+		//File path:
+		String csvfile = "C:\\Users\\40204497\\Desktop\\Artificial-Intelligence\\input1.cav";
+		//String csvfile = "H:\\Artificial Intelligence\\Coursework\\Artificial-Intelligence\\input1.cav";
+		//String csvfile = "C:\\Users\\Dimitris\\Desktop\\Artificial Intelligence\\Coursework\\Artificial-Intelligence\\input1.cav";
 		
 		
-		Scanner scanner = new Scanner(new File(csvfile));
 		
+		
+		
+		//Reading the file:
 		try (BufferedReader br = new BufferedReader(new FileReader(csvfile))) {
 			while ((line = br.readLine()) != null) {
 				String[] numbers = line.split(splitby);
@@ -32,66 +39,59 @@ public class main {
 					//System.out.print(filelist.get(i)+",");	
 					//System.out.print(numbers[i]+",");	
 				}
-				
-				
-				
-				
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		
-		int numberofcaverns = filelist.get(0);
 		
 		
-		//To get location of caverns:
-		for (int i=1;i<numberofcaverns*2;i=i+2) {
-			Cavern node1 = new Cavern(filelist.get(i),filelist.get(i+1)); 
+		
+		int numberofcaverns = filelist.get(0); //Get number of caverns from the first digit in the file
+		
+		
+		//To get all caverns added to the list:
+		for (int i=1,j=1;i<numberofcaverns*2;i=i+2,j++) {
+			Cavern node1 = new Cavern(filelist.get(i),filelist.get(i+1),j); 
 			cavernlist.add(node1);
 		}
 		
 		
-		int tmp=0;
-		int loopcavern=0;
-		
-		
-		for (int i=0; i < cavernlist.size(); i=i++) {
-			Cavern c = cavernlist.get(tmp);
-			
-			if (filelist.get(loopcavern)+tmp*numberofcaverns == 1) {
-				c.getNeighboor().add(cavernlist.get(loopcavern));
-			}
-			loopcavern++;
-			
-			if (loopcavern==numberofcaverns) {
-				loopcavern=0;
-				tmp++;
-			}
-		}
-		
-		
-		
-		
-		
-		
-		
 		//To get paths for each cavern, i starts where the coordinates for the caverns finish and goes until the end of the filelist
-		for (int i=numberofcaverns*2+1; i<filelist.size(); i++) {
-			
+		for (int i = numberofcaverns*2+1; i<filelist.size();i++) {
+			int num = filelist.get(i);
+			connectionList.add(num);
 		}
 		
 		
 		
-		for (Cavern c : cavernlist) {
-			//System.out.print("("+c.getX()+","+c.getY()+")");
-		}
 		
 		
-		for (int i=0; i<numberofcaverns; i++) {
-			//System.out.print(cav);
-			System.out.print(cavernlist.get(i).getNeighboor().size() + "NEXT:");
-
+		//Using the boolean for printing out tyhe connection
+		boolean check = false;
+		//Checking connection for each tavern
+		for (int j=0; j<numberofcaverns;j++) {
+			for (int i=0; i < cavernlist.size(); i++) {
+				
+				Cavern c = cavernlist.get(j);
+				
+				if (connectionList.get(i+cavernlist.size()*j) == 1) {
+					c.getNeighboor().add(cavernlist.get(i));
+					check = true;
+				}
+				
+				if (check) {
+					System.out.print("Cavern " + cavernlist.get(i).getId() + " is connected to Cavern " + c.getId()  + ": YES \n");
+				}
+				else {
+					System.out.print("Cavern " + cavernlist.get(i).getId() + " is connected to Cavern " + c.getId() + ": NO \n");
+				}			
+				check = false;		
+			}
+			System.out.print("\n");
 		}
+		
+	
 		
 		
 
