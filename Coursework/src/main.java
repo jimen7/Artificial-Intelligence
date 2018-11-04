@@ -16,12 +16,12 @@ public class main {
 		return distance;
 	}
 	
-	static List<Cavern> reconstruct_Path(HashMap<Cavern,Cavern> originPath, Cavern to){
+	static List<Cavern> reconstruct_Path(HashMap<Cavern,Cavern> originPath, Cavern current){
 		List<Cavern> totalPath = new ArrayList<Cavern>();
-		totalPath.add(to);
-		while (originPath.containsKey(to)) {
-			originPath.put(to, originPath.get(to));
-			//totalPath.addAll(to);
+		totalPath.add(current);
+		while (originPath.containsKey(current)) {
+			current = originPath.get(current);
+			totalPath.add(current);
 		}
 		return totalPath;
 		
@@ -44,9 +44,9 @@ public class main {
 		String line = "";
 		String splitby = ",";
 		//File path:
-		String csvfile = "C:\\Users\\40204497\\Desktop\\Artificial-Intelligence\\input1.cav";
+		//String csvfile = "C:\\Users\\40204497\\Desktop\\Artificial-Intelligence\\input1.cav";
 		//String csvfile = "H:\\Artificial Intelligence\\Coursework\\Artificial-Intelligence\\input1.cav";
-		//String csvfile = "C:\\Users\\Dimitris\\Desktop\\Artificial Intelligence\\Coursework\\Artificial-Intelligence\\input1.cav";
+		String csvfile = "C:\\Users\\Dimitris\\Desktop\\Artificial-Intelligence\\input1.cav";
 		
 		//Values for A star algorithm
 		List<Cavern> openCav = new ArrayList<Cavern>(); //The caverns that have not been checked yet
@@ -57,13 +57,13 @@ public class main {
 		
 		HashMap<Cavern,Double> gscore = new HashMap<Cavern,Double>(); //The cost of getting from the start to the cavern
 		
-		gscore.put(cavernlist.get(0), 0.0);
+		
 		
 		HashMap<Cavern,Double> fscore = new HashMap<Cavern,Double>(); //The cost of getting from the start to the goal by passing through this cavern
 		
-		fscore.put(cavernlist.get(0), Euclidian_Distance(cavernlist.get(0), cavernlist.get(cavernlist.size()-1)));
+
 		
-		Cavern goal = cavernlist.get(cavernlist.size());
+		
 		
 		Cavern currentNode = null;  //'This is the node in openCav that has the lowest fscore value
 		
@@ -95,6 +95,13 @@ public class main {
 			Cavern node1 = new Cavern(filelist.get(i),filelist.get(i+1),j); 
 			cavernlist.add(node1);
 		}
+		
+		gscore.put(cavernlist.get(0), 0.0);
+		
+		fscore.put(cavernlist.get(0), Euclidian_Distance(cavernlist.get(0), cavernlist.get(cavernlist.size()-1)));
+		
+		Cavern goal = cavernlist.get(cavernlist.size()-1);
+		openCav.add(cavernlist.get(0));
 		
 		
 		//To get paths for each cavern, i starts where the coordinates for the caverns finish and goes until the end of the filelist
@@ -158,9 +165,9 @@ public class main {
 			
 			
 			///HERE
-		if (currentNode == goal) {
+		if (currentNode.equals(goal)) {
 				//reconstruct_Path(cameFrom, currentNode);
-				System.out.print("\n" + reconstruct_Path(cameFrom, currentNode));
+				System.out.print("\n" + "FINAL PATH" + reconstruct_Path(cameFrom, currentNode));
 				break;
 			}
 			

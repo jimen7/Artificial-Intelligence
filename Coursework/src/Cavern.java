@@ -31,6 +31,11 @@ public class Cavern {
 		return y;
 	}
 	
+	@Override 
+	public String toString() {
+		return this.id + "" ;
+	}
+	
 
 	
 	
