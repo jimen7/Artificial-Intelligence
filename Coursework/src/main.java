@@ -4,6 +4,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 import java.util.HashMap;
 
@@ -13,6 +14,17 @@ public class main {
 		double distance;
 		distance = Math.sqrt((from.getX()-to.getX())*(from.getX()-to.getX()) + (from.getY()-to.getY())*(from.getY()-to.getY()));
 		return distance;
+	}
+	
+	static List<Cavern> reconstruct_Path(HashMap<Cavern,Cavern> originPath, Cavern to){
+		List<Cavern> totalPath = new ArrayList<Cavern>();
+		totalPath.add(to);
+		while (originPath.containsKey(to)) {
+			originPath.put(to, originPath.get(to));
+			//totalPath.addAll(to);
+		}
+		return totalPath;
+		
 	}
 	
 
@@ -38,12 +50,22 @@ public class main {
 		
 		//Values for A star algorithm
 		List<Cavern> openCav = new ArrayList<Cavern>(); //The caverns that have not been checked yet
+		
 		List<Cavern> closedCav = new ArrayList<Cavern>(); //The caverns that have been checked
-		HashMap<Cavern,Cavern> originalpath = new HashMap<Cavern,Cavern>();
+		
+		HashMap<Cavern,Cavern> cameFrom = new HashMap<Cavern,Cavern>();
+		
 		HashMap<Cavern,Double> gscore = new HashMap<Cavern,Double>(); //The cost of getting from the start to the cavern
+		
 		gscore.put(cavernlist.get(0), 0.0);
+		
 		HashMap<Cavern,Double> fscore = new HashMap<Cavern,Double>(); //The cost of getting from the start to the goal by passing through this cavern
+		
 		fscore.put(cavernlist.get(0), Euclidian_Distance(cavernlist.get(0), cavernlist.get(cavernlist.size()-1)));
+		
+		Cavern goal = cavernlist.get(cavernlist.size());
+		
+		Cavern currentNode = null;  //'This is the node in openCav that has the lowest fscore value
 		
 		
 		
@@ -112,6 +134,59 @@ public class main {
 	
 		while (!openCav.isEmpty()) {  //A star loop
 			//Cavern l = openCav.get(fscore.(Need to get key with lowest fscore value));
+
+			Double lowestvalue = 100000000000000000000.0;
+			
+			for (Cavern iteration: openCav) { //Iterate through every object in openCav
+				for (Map.Entry<Cavern, Double> entry: fscore.entrySet()) {//iterate through every object in fscore
+					
+					Cavern key = entry.getKey();
+					Double value = entry.getValue();
+					
+					if (iteration==key) { //if the value from openCav is contained in fscore, compare and set it to be that if it's lower
+						if (lowestvalue>value) {
+							
+							lowestvalue=value;
+							currentNode = key;
+							
+						}
+						
+					}
+				}
+				
+			}
+			
+			
+			///HERE
+		if (currentNode == goal) {
+				//reconstruct_Path(cameFrom, currentNode);
+				System.out.print("\n" + reconstruct_Path(cameFrom, currentNode));
+				break;
+			}
+			
+			openCav.remove(currentNode);
+			closedCav.add(currentNode);
+			
+			for (Cavern neighbor: currentNode.getNeighboor()) {
+				if (closedCav.contains(neighbor)) {
+					continue; //Ignore the already evaluated neighbor
+				}
+				
+				double tentative_gScore = gscore.get(currentNode) + Euclidian_Distance(currentNode, neighbor);
+				
+				if (!openCav.contains(neighbor)) { //Discover a new node
+					openCav.add(neighbor);
+				}
+				else if (tentative_gScore>=gscore.get(neighbor)) {
+					continue;
+				}
+				
+				cameFrom.put(neighbor, currentNode);
+				gscore.put(neighbor, tentative_gScore);
+				fscore.put(neighbor, gscore.get(neighbor)+Euclidian_Distance(neighbor, goal));
+				
+			}
+			
 		}
 		
 
