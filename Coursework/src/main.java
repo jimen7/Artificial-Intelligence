@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.HashMap;
+import java.util.Collections;
 
 public class main {
 	
@@ -23,7 +24,8 @@ public class main {
 			current = originPath.get(current);
 			totalPath.add(current);
 		}
-		return totalPath;
+		Collections.reverse(totalPath);
+		return (totalPath);
 		
 	}
 	
@@ -46,7 +48,8 @@ public class main {
 		//File path:
 		//String csvfile = "C:\\Users\\40204497\\Desktop\\Artificial-Intelligence\\input1.cav";
 		//String csvfile = "H:\\Artificial Intelligence\\Coursework\\Artificial-Intelligence\\input1.cav";
-		String csvfile = "C:\\Users\\Dimitris\\Desktop\\Artificial-Intelligence\\input1.cav";
+		//String csvfile = "C:\\Users\\Dimitris\\Desktop\\Artificial-Intelligence\\input3.cav";
+		String csvfile = "C:\\Users\\Dimitris\\Desktop\\Artificial-Intelligence\\400-2.cav";
 		
 		//Values for A star algorithm
 		List<Cavern> openCav = new ArrayList<Cavern>(); //The caverns that have not been checked yet
@@ -61,7 +64,9 @@ public class main {
 		
 		HashMap<Cavern,Double> fscore = new HashMap<Cavern,Double>(); //The cost of getting from the start to the goal by passing through this cavern
 		
-
+		Double totalDistance=0.0;
+		
+		Boolean success = false;
 		
 		
 		
@@ -127,15 +132,15 @@ public class main {
 					check = true;
 				}
 				
-				if (check) {
-					System.out.print("Cavern " + cavernlist.get(i).getId() + " is connected to Cavern " + c.getId()  + ": YES \n");
-				}
-				else {
-					System.out.print("Cavern " + cavernlist.get(i).getId() + " is connected to Cavern " + c.getId() + ": NO \n");
-				}			
-				check = false;		
+//				if (check) {
+//					System.out.print("Cavern " + cavernlist.get(i).getId() + " is connected to Cavern " + c.getId()  + ": YES \n");
+//				}
+//				else {
+//					System.out.print("Cavern " + cavernlist.get(i).getId() + " is connected to Cavern " + c.getId() + ": NO \n");
+//				}			
+//				check = false;		
 			}
-			System.out.print("\n");
+			//System.out.print("\n");
 		}
 		
 	
@@ -162,14 +167,19 @@ public class main {
 				}
 				
 			}
+
 			
 			
 			///HERE
 		if (currentNode.equals(goal)) {
 				//reconstruct_Path(cameFrom, currentNode);
-				System.out.print("\n" + "FINAL PATH" + reconstruct_Path(cameFrom, currentNode));
+				//System.out.print("FINAL PATH: " + reconstruct_Path(cameFrom, currentNode) + "\nTotal distance: " + totalDistance );
+				success = true;
 				break;
 			}
+		else {
+			//System.out.print("\n" + "There is no path");
+		}
 			
 			openCav.remove(currentNode);
 			closedCav.add(currentNode);
@@ -194,6 +204,19 @@ public class main {
 				
 			}
 			
+		}
+		
+		if (success) {
+			
+			//Calculate the total distance of the path travelled
+			for (int j=0; j<reconstruct_Path(cameFrom, currentNode).size()-1;j++) {
+				totalDistance += Euclidian_Distance(reconstruct_Path(cameFrom, currentNode).get(j), reconstruct_Path(cameFrom, currentNode).get(j+1));
+			}
+			//Print out final path
+			System.out.print("FINAL PATH: " + reconstruct_Path(cameFrom, currentNode) + "\nTotal distance: " + totalDistance );
+		}
+		else {
+			System.out.print("\n" + "There is no path");
 		}
 		
 
