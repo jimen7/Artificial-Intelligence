@@ -191,7 +191,7 @@ public class main {
 			
 			for (Cavern neighbor: currentNode.getNeighboor()) {
 				if (closedCav.contains(neighbor)) {
-					continue; //Ignore the already evaluated neighbor
+					continue; //Ignore the already evaluated neighbour
 				}
 				
 				double tentative_gScore = gscore.get(currentNode) + Euclidian_Distance(currentNode, neighbor);
