@@ -26,7 +26,6 @@ public class main {
 		}
 		Collections.reverse(totalPath);
 		return (totalPath);
-		
 	}
 	
 
@@ -126,9 +125,10 @@ public class main {
 			for (int i=0; i < cavernlist.size(); i++) {
 				
 				Cavern c = cavernlist.get(j);
-				
+				//System.out.println(c.getId());
 				if (connectionList.get(i+cavernlist.size()*j) == 1) {
-					c.getNeighboor().add(cavernlist.get(i));
+					cavernlist.get(i).getNeighboor().add(c);
+					//c.getNeighboor().add(cavernlist.get(i));
 					check = true;
 				}
 				
