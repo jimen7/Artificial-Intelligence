@@ -1,13 +1,14 @@
 import java.io.BufferedReader;
-import java.io.File;
+//import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Scanner;
+//import java.util.Scanner;
 import java.util.HashMap;
 import java.util.Collections;
+import java.util.Date;
 
 public class main {
 	
@@ -30,6 +31,10 @@ public class main {
 	
 
 	public static void main(String[] args) throws Exception {
+		//Time calculation variables;
+		long lStartTime = new Date().getTime();
+		long lEndTime;
+		
 		// TODO Auto-generated method stub
 		
 		List<Cavern> cavernlist = new ArrayList<Cavern>(); //List of all Caverns
@@ -48,7 +53,7 @@ public class main {
 		//String csvfile = "C:\\Users\\40204497\\Desktop\\Artificial-Intelligence\\input1.cav";
 		//String csvfile = "H:\\Artificial Intelligence\\Coursework\\Artificial-Intelligence\\input1.cav";
 		//String csvfile = "C:\\Users\\Dimitris\\Desktop\\Artificial-Intelligence\\input3.cav";
-		String csvfile = "C:\\Users\\Dimitris\\Desktop\\Artificial-Intelligence\\400-2.cav";
+		String csvfile = "C:\\Users\\Dimitris\\Desktop\\Artificial-Intelligence\\1000-2.cav";
 		
 		//Values for A star algorithm
 		List<Cavern> openCav = new ArrayList<Cavern>(); //The caverns that have not been checked yet
@@ -212,11 +217,18 @@ public class main {
 			for (int j=0; j<reconstruct_Path(cameFrom, currentNode).size()-1;j++) {
 				totalDistance += Euclidian_Distance(reconstruct_Path(cameFrom, currentNode).get(j), reconstruct_Path(cameFrom, currentNode).get(j+1));
 			}
+			
+			lEndTime = new Date().getTime();
+			long difference = lEndTime - lStartTime;
+			
+			
 			//Print out final path
-			System.out.print("FINAL PATH: " + reconstruct_Path(cameFrom, currentNode) + "\nTotal distance: " + totalDistance );
+			System.out.print("FINAL PATH: " + reconstruct_Path(cameFrom, currentNode) + "\nTotal distance: " + totalDistance +"\nElapsed milliseconds: " + difference );
 		}
 		else {
-			System.out.print("\n" + "There is no path");
+			lEndTime = new Date().getTime();
+			long difference = lEndTime - lStartTime;
+			System.out.print("\n" + "There is no path"+"\nElapsed milliseconds: " + difference);
 		}
 		
 
