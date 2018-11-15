@@ -1,7 +1,13 @@
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 //import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -9,6 +15,7 @@ import java.util.Map;
 import java.util.HashMap;
 import java.util.Collections;
 import java.util.Date;
+import java.io.PrintWriter;
 
 public class main {
 	
@@ -53,7 +60,19 @@ public class main {
 		//String csvfile = "C:\\Users\\40204497\\Desktop\\Artificial-Intelligence\\input1.cav";
 		//String csvfile = "H:\\Artificial Intelligence\\Coursework\\Artificial-Intelligence\\input1.cav";
 		//String csvfile = "C:\\Users\\Dimitris\\Desktop\\Artificial-Intelligence\\input3.cav";
-		String csvfile = "C:\\Users\\Dimitris\\Desktop\\Artificial-Intelligence\\1000-2.cav";
+		//String csvfile = "C:\\Users\\40204497\\Desktop\\Artificial-Intelligence\\1000-1.cav";
+		
+		String cavfile = args[0];
+		//String filePath = "C:\\Users\\40204497\\Desktop\\Artificial-Intelligence\\Batch File Test Environment";
+		String filePath = "H:\\Artificial Intelligence\\OUTPUTTEST\\outputfile.csn";
+		FileWriter outputfile = null;
+		
+
+			
+
+		//CSVWriter writer = new CSVWriter(outputfile);
+		
+	//	File file = new File();
 		
 		//Values for A star algorithm
 		List<Cavern> openCav = new ArrayList<Cavern>(); //The caverns that have not been checked yet
@@ -79,7 +98,7 @@ public class main {
 		
 		
 		//Reading the file:
-		try (BufferedReader br = new BufferedReader(new FileReader(csvfile))) {
+		try (BufferedReader br = new BufferedReader(new FileReader(cavfile))) {
 			while ((line = br.readLine()) != null) {
 				String[] numbers = line.split(splitby);
 				
@@ -92,6 +111,17 @@ public class main {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		
+		
+		
+		
+		//Atempt1
+		
+		
+		
+		
+		
+		
 		
 		
 		
@@ -224,11 +254,16 @@ public class main {
 			
 			//Print out final path
 			System.out.print("FINAL PATH: " + reconstruct_Path(cameFrom, currentNode) + "\nTotal distance: " + totalDistance +"\nElapsed milliseconds: " + difference );
+//			outputfile = new FileWriter(new File("h:\\out.dat"));
+			outputfile = new FileWriter(new File(filePath));
+			outputfile.append(reconstruct_Path(cameFrom, currentNode).toString());
 		}
 		else {
 			lEndTime = new Date().getTime();
 			long difference = lEndTime - lStartTime;
 			System.out.print("\n" + "There is no path"+"\nElapsed milliseconds: " + difference);
+			outputfile = new FileWriter(new File(filePath));
+			outputfile.append("0");
 		}
 		
 
