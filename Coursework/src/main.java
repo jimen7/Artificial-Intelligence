@@ -1,13 +1,9 @@
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 //import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -15,7 +11,6 @@ import java.util.Map;
 import java.util.HashMap;
 import java.util.Collections;
 import java.util.Date;
-import java.io.PrintWriter;
 
 public class main {
 	
@@ -63,8 +58,8 @@ public class main {
 		//String csvfile = "C:\\Users\\40204497\\Desktop\\Artificial-Intelligence\\1000-1.cav";
 		
 		String cavfile = args[0];
-		//String filePath = "C:\\Users\\40204497\\Desktop\\Artificial-Intelligence\\Batch File Test Environment";
-		String filePath = "H:\\Artificial Intelligence\\OUTPUTTEST\\outputfile.csn";
+		String filePath = "C:\\Users\\40204497\\Desktop\\Artificial-Intelligence\\Batch File Test Environment\\outputfile.csn";
+		//String filePath = "H:\\Artificial Intelligence\\OUTPUTTEST\\outputfile.csn";
 		FileWriter outputfile = null;
 		
 
@@ -253,17 +248,24 @@ public class main {
 			
 			
 			//Print out final path
-			System.out.print("FINAL PATH: " + reconstruct_Path(cameFrom, currentNode) + "\nTotal distance: " + totalDistance +"\nElapsed milliseconds: " + difference );
-//			outputfile = new FileWriter(new File("h:\\out.dat"));
+			//System.out.print("FINAL PATH: " + reconstruct_Path(cameFrom, currentNode) + "\nTotal distance: " + totalDistance +"\nElapsed milliseconds: " + difference );
+			System.out.print("\n" + "Path Succesfully found" + "\nTotal distance: " + totalDistance +"\nElapsed milliseconds: " + difference + "\n");
+			
 			outputfile = new FileWriter(new File(filePath));
-			outputfile.append(reconstruct_Path(cameFrom, currentNode).toString());
+			for (int i=0; i<reconstruct_Path(cameFrom, currentNode).size(); i++) {
+				Cavern test = reconstruct_Path(cameFrom, currentNode).get(i);
+				outputfile.append(test.toString() + " ");
+			}
+			
+			outputfile.close();
 		}
 		else {
 			lEndTime = new Date().getTime();
 			long difference = lEndTime - lStartTime;
-			System.out.print("\n" + "There is no path"+"\nElapsed milliseconds: " + difference);
+			System.out.print("\n" + "There is no path"+"\nElapsed milliseconds: " + difference + "\n");
 			outputfile = new FileWriter(new File(filePath));
 			outputfile.append("0");
+			outputfile.close();
 		}
 		
 

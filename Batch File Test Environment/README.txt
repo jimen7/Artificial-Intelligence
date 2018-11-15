@@ -1,0 +1,1 @@
+java -jar Test.jar C:\Users\40204497\Desktop\Artificial-Intelligence\100-1.cav
