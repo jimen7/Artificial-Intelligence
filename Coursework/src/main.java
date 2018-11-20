@@ -72,7 +72,11 @@ public class main {
 		
 		String filePath =  System.getProperty("user.dir");
 		//String delSTR = "Coursework";
-		//filePath.substring(filePath.length()-10, filePath.length());  //This is to run it from Eclipse ONLY
+		
+		
+	//	filePath = filePath.substring(0, filePath.length()-10);  //This is to run it from Eclipse ONLY
+	//	filePath += "Batch File Test Environment"; //This is to run it from Eclipse ONLY
+		
 		filePath += "\\outputfile.csn";
 		
 
