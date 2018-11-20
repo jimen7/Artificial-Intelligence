@@ -57,10 +57,23 @@ public class main {
 		//String csvfile = "C:\\Users\\Dimitris\\Desktop\\Artificial-Intelligence\\input3.cav";
 		//String csvfile = "C:\\Users\\40204497\\Desktop\\Artificial-Intelligence\\1000-1.cav";
 		
-		String cavfile = args[0];
-		String filePath = "C:\\Users\\40204497\\Desktop\\Artificial-Intelligence\\Batch File Test Environment\\outputfile.csn";
+		String cavfile = null;
+		if (args.length==1) {
+			cavfile = args[0];
+		}
+		else {
+			System.out.print("\nInvalid Argument Error: The program should be run from command line with an argument. Example:\n java -jar Test.jar C:\\Users\\user\\Desktop\\Artificial-Intelligence\\100-1.cav\nWhere Test.jar is the program, and the .cav is the location of the map\n");
+			System.exit(1);
+		}
+		
+		//String filePath = "C:\\Users\\40204497\\Desktop\\Artificial-Intelligence\\Batch File Test Environment\\outputfile.csn";
 		//String filePath = "H:\\Artificial Intelligence\\OUTPUTTEST\\outputfile.csn";
 		FileWriter outputfile = null;
+		
+		String filePath =  System.getProperty("user.dir");
+		//String delSTR = "Coursework";
+		//filePath.substring(filePath.length()-10, filePath.length());  //This is to run it from Eclipse ONLY
+		filePath += "\\outputfile.csn";
 		
 
 			
@@ -104,7 +117,8 @@ public class main {
 				}
 			}
 		} catch (IOException e) {
-			e.printStackTrace();
+			System.out.println("\nInvalid Path\n");
+			System.exit(1);
 		}
 		
 		
