@@ -59,7 +59,13 @@ public class main {
 		
 		String cavfile = null;
 		if (args.length==1) {
-			cavfile = args[0];
+			if (args[0].endsWith(".cav")) {
+				cavfile = args[0];
+			}
+			else {
+				cavfile = args[0] + ".cav";
+			}
+			
 		}
 		else {
 			System.out.print("\nInvalid Argument Error: The program should be run from command line with an argument. Example:\n java -jar Test.jar C:\\Users\\user\\Desktop\\Artificial-Intelligence\\100-1.cav\nWhere Test.jar is the program, and the .cav is the location of the map\n");
@@ -77,7 +83,16 @@ public class main {
 	//	filePath = filePath.substring(0, filePath.length()-10);  //This is to run it from Eclipse ONLY
 	//	filePath += "Batch File Test Environment"; //This is to run it from Eclipse ONLY
 		
-		filePath += "\\outputfile.csn";
+		String outfile = null;
+		if (args[0].endsWith(".cav")) {
+			outfile = args[0];
+			outfile = outfile.substring(0, outfile.length()-4);
+		}
+		else {
+			outfile = args[0];
+		}
+		
+		filePath += "\\" + outfile +".csn" ;
 		
 
 			
@@ -121,7 +136,8 @@ public class main {
 				}
 			}
 		} catch (IOException e) {
-			System.out.println("\nInvalid Path\n");
+			System.out.println("\nInvalid Path\n\nDetails:\n");
+			e.printStackTrace();
 			System.exit(1);
 		}
 		
