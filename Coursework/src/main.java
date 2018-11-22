@@ -286,6 +286,7 @@ public class main {
 			System.out.print("\n" + "Path Succesfully found" + "\nTotal distance: " + totalDistance +"\nElapsed milliseconds: " + difference + "\n");
 			
 			outputfile = new FileWriter(new File(filePath));
+			//System.out.println(filePath);
 			for (int i=0; i<reconstruct_Path(cameFrom, currentNode).size(); i++) {
 				Cavern test = reconstruct_Path(cameFrom, currentNode).get(i);
 				outputfile.append(test.toString() + " ");
