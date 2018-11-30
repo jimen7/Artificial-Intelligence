@@ -195,14 +195,7 @@ public class main {
 					//c.getNeighboor().add(cavernlist.get(i));
 					check = true;
 				}
-				
-//				if (check) {
-//					System.out.print("Cavern " + cavernlist.get(i).getId() + " is connected to Cavern " + c.getId()  + ": YES \n");
-//				}
-//				else {
-//					System.out.print("Cavern " + cavernlist.get(i).getId() + " is connected to Cavern " + c.getId() + ": NO \n");
-//				}			
-//				check = false;		
+					
 			}
 			//System.out.print("\n");
 		}
